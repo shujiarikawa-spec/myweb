@@ -930,3 +930,97 @@ img{ display:block; max-width:100%; }
 .animate-fade-in-up{
   animation: fade-in-up 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ===========================
+   Responsive Fix Pack (A/B/C)
+   追記推奨：style.css の末尾
+   =========================== */
+
+/* A) Hero見出し：巨大すぎて崩れる問題を clamp() で解消 */
+.hero__title{
+  /* スマホ〜PCまで自然に伸縮させる（上限は元の 144px 相当） */
+  font-size: clamp(42px, 7.5vw, 144px);
+  /* 行間も少し柔軟に（詰まり/間延び防止） */
+  line-height: 1.15;
+  /* 余白を少し圧縮（小さい画面での縦圧迫を軽減） */
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.hero__lead{
+  /* 長文が横に伸びすぎたり詰まるのを抑える */
+  font-size: clamp(14px, 1.8vw, 20px);
+  /* letter-spacingが強いので、小画面は少し緩める */
+  letter-spacing: clamp(0.12em, 0.6vw, 0.3em);
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+
+/* B) Journal：高さ700px固定が低身長デバイスで窮屈 → 可変に */
+@media (min-width:1024px){
+  .journal{
+    /* 固定heightを上書きして可変化 */
+    height: auto;
+    /* 代わりに最低限の見栄えを確保 */
+    min-height: 600px;
+  }
+
+  /* 画像が潰れないよう保険 */
+  .journal__big,
+  .journal__small,
+  .journal__wide{
+    min-height: 260px;
+  }
+}
+
+/* さらに縦が低いデバイス（ノートPC等）では余白も少しだけ削る */
+@media (min-width:1024px) and (max-height:800px){
+  .section{ padding: 96px 0; }
+  .heroQuote{ padding: 180px 0; }
+}
+
+/* Journalの説明文：狭い幅では長文が圧迫するので段階表示 */
+@media (min-width:768px) and (max-width:1100px){
+  .journal__desc{
+    /* 長い場合でも詰まりにくいよう幅を制限 */
+    max-width: 420px;
+    font-size: 13px;
+  }
+}
+
+
+/* C) Philosophy：右下の引用カードがはみ出す問題を防止 */
+.mediaCard{
+  /* 右下がはみ出しても横スクロールを出さない */
+  overflow: hidden;
+}
+
+/* まず中間幅（タブレット〜小型ノート）でははみ出しを弱める */
+@media (max-width:1100px){
+  .quoteCard{
+    right: 16px;
+    bottom: 16px;
+    /* サイズを少し縮める */
+    padding: 28px;
+    max-width: 320px;
+  }
+}
+
+/* スマホ：右下オーバーレイをやめて「下に置く」構成へ */
+@media (max-width:768px){
+  .mediaCard__img{
+    height: 420px; /* スマホで縦圧迫しない */
+  }
+
+  .quoteCard{
+    position: static;      /* 絶対配置を解除 */
+    margin-top: 16px;      /* 画像の下に自然に配置 */
+    max-width: 100%;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+/* ついでに：小画面での横スクロール保険（どこかが1pxでもはみ出すケース対策） */
+html, body{
+  overflow-x: hidden;
+}
