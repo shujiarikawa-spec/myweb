@@ -14,52 +14,16 @@
 </head>
 <body class="page">
   <!-- Navigation -->
-  <nav id="nav" class="nav nav--top">
-    <div class="nav__inner">
-      <div class="nav__brand">
-        <div id="brandText" class="brand brand--light">くさのちから</div>
-      </div>
-
-      <div id="navLinks" class="nav__links nav__links--light">
-        <a href="#" class="nav__item">Philosophy</a>
-        <a href="#" class="nav__item">Our Farm</a>
-        <a href="#" class="nav__item">Harvest</a>
-        <a href="#" class="nav__item">Journal</a>
-        <a href="#" class="nav__item">Shop</a>
-      </div>
-
-      <div class="nav__actions">
-        <button id="menuBtn" class="icon-btn" aria-label="Open menu">
-          <i data-lucide="menu"></i>
-        </button>
-
-        <div class="nav__contactWrap">
-          <button id="contactBtn" class="btn btn--pill btn--outline-light">
-            CONTACT US
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu Overlay -->
-  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-    <div class="mobile-menu__content">
-      <a href="#" class="mobile-menu__link">私たちの哲学</a>
-      <a href="#" class="mobile-menu__link">農園のこと</a>
-      <a href="#" class="mobile-menu__link">季節の収穫</a>
-      <a href="#" class="mobile-menu__link">日々の便り</a>
-
-      <div class="mobile-menu__social">
-        <a href="https://www.instagram.com/kusa_chikara/?hl=ja" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <i data-lucide="instagram"></i>
-        </a>
-        <a href="#" aria-label="Mail">
-          <i data-lucide="mail"></i>
-        </a>
-      </div>
-    </div>
+ <nav id="nav" class="nav nav--top">
+  <div class="nav__brand">
+  <a href="#" class="brandLink">
+    <img src="logo.png" alt="くさのちから" class="brandLogo">
+  </a>
+</div>
   </div>
+</nav>
+
+ 
 
   <!-- Hero Section -->
   <section class="hero">
@@ -72,20 +36,50 @@
       <span class="hero__kicker animate-slide-up">Natural Farming in Nanjo, Okinawa</span>
     </div>
 
-    <h1 class="hero__title animate-fade-in-up">
-      野菜は、体をつくる。<br />
-      <span class="hero__titleAccent">体は、人生をつくる。</span>
-    </h1>
+   <h1 class="hero__title animate-fade-in-up">
 
-    <p class="hero__lead">
-      沖縄の赤土、吹き抜ける潮風。<br />
-      無理をさせず、信じて待つ。そこに真実の味が宿る。
-    </p>
+  <!-- PC / Tablet -->
+  <span class="heroPc">
+    <span class="heroLine">
+      <span class="heroKey heroKey--veg">野菜</span><span class="heroSmall">は、</span>
+      <span class="heroKey">体</span><span class="heroSmall">をつくる。</span>
+    </span>
+    <span class="heroLine">
+      <span class="heroKey">体</span><span class="heroSmall">は、</span>
+      <span class="heroKey">人生</span><span class="heroSmall">をつくる。</span>
+    </span>
+  </span>
+
+  <!-- SP only（指定改行） -->
+  <span class="heroSp" aria-hidden="true">
+    <span class="heroLine">
+      <span class="heroKey heroKey--veg">野菜</span><span class="heroSmall">は、</span>
+    </span>
+    <span class="heroLine">
+      <span class="heroKey">体</span><span class="heroSmall">をつくる</span>
+    </span>
+
+    <span class="heroBreak"></span>
+
+    <span class="heroLine">
+      <span class="heroKey">体</span><span class="heroSmall">は、</span>
+    </span>
+    <span class="heroLine">
+      <span class="heroKey">人生</span><span class="heroSmall">をつくる</span>
+    </span>
+  </span>
+
+</h1>
+
+<p class="hero__lead">
+  <br>沖縄の赤土、<br class="sp-only">
+  吹き抜ける潮風。<br>
+  無理をさせず、信じて待つ。<br class="sp-only">
+  そこに真実の味が宿る。
+</p>
 
     <div class="hero__cta">
-      <button class="btn btn--pill btn--solid">
-        STORY VIEW <i data-lucide="arrow-right" class="btn__icon"></i>
-      </button>
+     
 
       <a href="https://www.instagram.com/kusa_chikara/?hl=ja" target="_blank" rel="noopener noreferrer"
          class="btn btn--pill btn--ghost">
@@ -122,7 +116,7 @@
 
             <div class="profile">
               <div class="profile__icon">
-                <i data-lucide="heart"></i>
+                <i data-lucide="sprout"></i>
               </div>
               <p class="profile__text">園主：井上ゆうさく (42歳)</p>
             </div>
@@ -132,14 +126,14 @@
         <div class="reveal reveal--scaleIn">
           <div class="mediaCard">
             <img
-              src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&q=80"
+                  src="images/yusaku.jpg"
               alt="Farmer Inoue"
               class="mediaCard__img"
             />
             <div class="quoteCard">
               <p class="quoteCard__title">「誰が食べますか？」</p>
               <p class="quoteCard__desc">
-                野菜を売って終わりではなく、その先の体温までを想うのが、僕たちの仕事です。
+                野菜を売って終わりではなく、その先までを想うのが、僕の仕事です。
               </p>
             </div>
           </div>
@@ -155,9 +149,10 @@
 
       <div class="reveal reveal--fromBottom center mb--lg">
         <span class="eyebrow">The Policy</span>
-        <h2 class="h2">自然と対立せず、寄り添う。</h2>
+        <h2 class="h2">自然と対立せず、<br class="sp-only">
+          寄り添う。</h2>
         <p class="sublead">
-          「不耕起・無肥料・無農薬・無除草」。<br />
+          「不耕起・無肥料・無農薬・無除草」<br />
           それは我慢ではなく、自然を信じる農法。野菜に無理をさせず、ゆっくり育てます。
         </p>
       </div>
@@ -166,13 +161,13 @@
         <div class="pillar reveal reveal--fromBottom delay-200">
           <div class="pillar__icon"><i data-lucide="wind"></i></div>
           <h3 class="pillar__title">不耕起</h3>
-          <p class="pillar__desc">土の中の微生物が作る層を、人間の手で壊さない。</p>
+          <p class="pillar__desc">土の中の微生物が作る層を、<br />人間の手で壊さない。</p>
         </div>
 
         <div class="pillar reveal reveal--fromBottom delay-200">
           <div class="pillar__icon"><i data-lucide="droplets"></i></div>
           <h3 class="pillar__title">無肥料</h3>
-          <p class="pillar__desc">植物が自らの根を伸ばし、探す力を信じたいから。</p>
+          <p class="pillar__desc">植物が自らの根を伸ばし、<br />探す力を信じたいから。</p>
         </div>
 
         <div class="pillar reveal reveal--fromBottom delay-200">
@@ -184,7 +179,7 @@
         <div class="pillar reveal reveal--fromBottom delay-200">
           <div class="pillar__icon"><i data-lucide="leaf"></i></div>
           <h3 class="pillar__title">無除草</h3>
-          <p class="pillar__desc">草もまた土を守り、栄養を循環させる大切な仲間。</p>
+          <p class="pillar__desc">草もまた土を守り、<br />栄養を循環させる大切な仲間。</p>
         </div>
       </div>
 
@@ -241,21 +236,21 @@
           <div class="stat__icon"><i data-lucide="zap"></i></div>
           <div class="stat__value">6年目</div>
           <div class="stat__label">Experience</div>
-          <p class="stat__desc">南城市の土地とともに、自然の声を聴き続けて。</p>
+          <p class="stat__desc">南城市の土地とともに、<br />自然の声を聴き続けて。</p>
         </div>
 
         <div class="stat reveal reveal--fromBottom">
           <div class="stat__icon"><i data-lucide="droplets"></i></div>
           <div class="stat__value">0%</div>
           <div class="stat__label">Additives</div>
-          <p class="stat__desc">化学物質を一切使わず、土と水と太陽だけで。</p>
+          <p class="stat__desc">化学物質を一切使わず、<br />土と水と太陽だけで。</p>
         </div>
 
         <div class="stat reveal reveal--fromBottom">
           <div class="stat__icon"><i data-lucide="map-pin"></i></div>
           <div class="stat__value">南城市</div>
           <div class="stat__label">Origin</div>
-          <p class="stat__desc">潮風が通り抜け、虫の音が響く、沖縄の原風景。</p>
+          <p class="stat__desc">潮風が通り抜け、<br />虫の音が響く沖縄の原風景。</p>
         </div>
       </div>
     </div>
@@ -266,12 +261,28 @@
     <div class="container container--1200">
       <div class="reveal reveal--scaleIn center">
         <div class="heroQuote__icon"><i data-lucide="quote"></i></div>
-        <blockquote class="heroQuote__text">
-          "この野菜、まずは塩だけで<br />
-          <span class="heroQuote__accent">食べてみてください。</span>"
-        </blockquote>
+       <blockquote class="heroQuote__text">
+  <!-- PC / Tablet -->
+  <span class="hqPc">
+    "この野菜、まずは塩だけで<br />
+    <span class="heroQuote__accent">食べてみてください。</span>"
+  </span>
+
+  <!-- SP only -->
+  <span class="hqSp" aria-hidden="true">
+    <span class="hqLine">
+      <span class="hqSmall">この</span><span class="hqKey hqKey--veg">野菜</span><span class="hqSmall">、</span>
+    </span>
+    <span class="hqLine">
+      <span class="hqSmall">まずは</span><span class="hqKey">塩</span><span class="hqSmall">だけで</span>
+    </span>
+    <span class="hqLine">
+      <span class="hqKey">食べて</span><span class="hqSmall">みてください。</span>
+    </span>
+  </span>
+</blockquote>
         <div class="heroQuote__citeWrap">
-          <cite class="heroQuote__cite">— 園主 井上 ゆうさく</cite>
+          <cite class="heroQuote__cite">園主 井上 ゆうさく</cite>
         </div>
       </div>
     </div>
@@ -291,17 +302,15 @@
             <span class="journal__tag">Story</span>
             <h3 class="journal__title">台風を乗り越えた「根」の話。</h3>
             <p class="journal__desc">
-              去年の台風で葉が倒れても、根が生きていればまた伸びる。草の強さは、僕たちに生きる勇気を教えてくれます。
+              去年の台風で葉が倒れても、根が生きていればまた伸びる。<br/>草の強さは、僕たちに生きる勇気を教えてくれます。
             </p>
-            <button class="journal__more">
-              READ MORE <i data-lucide="chevron-right"></i>
-            </button>
+          
           </div>
         </div>
 
         <div class="journal__small reveal reveal--fromBottom delay-200">
           <img
-            src="https://images.unsplash.com/photo-1621460245180-870024f9247d?auto=format&fit=crop&q=80"
+            src="images/sixth.jpg" alt="Farm Gallery"
             alt="Farmer"
             class="journal__img"
           />
@@ -315,7 +324,7 @@
 
         <div class="journal__wide reveal reveal--fromBottom delay-600">
           <img
-            src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&q=80"
+            src="images/shop.jpg" alt="Farm Gallery"
             alt="People"
             class="journal__img"
           />
@@ -339,47 +348,44 @@
             <a href="https://www.instagram.com/kusa_chikara/?hl=ja" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <i data-lucide="instagram"></i>
             </a>
-            <a href="#" aria-label="Mail">
-              <i data-lucide="mail"></i>
-            </a>
+        
           </div>
         </div>
-
-        <div class="footer__col">
-          <h4 class="footer__head">Index</h4>
-          <ul class="footer__list">
-            <li><a href="#">私たちの哲学</a></li>
-            <li><a href="#">農園のこと</a></li>
-            <li><a href="#">お買い物</a></li>
-          </ul>
-        </div>
-
-        <div class="footer__col">
-          <h4 class="footer__head">Connect</h4>
-          <ul class="footer__list">
-            <li><a href="#">注文のご相談</a></li>
-            <li><a href="#">卸売・定期便</a></li>
-            <li><a href="#">お問い合わせ</a></li>
-          </ul>
-        </div>
-
         <div class="footer__col footer__col--wide">
-          <h4 class="footer__head">Location</h4>
-          <p class="footer__loc">
-            沖縄県南城市。<br />
-            直接お越しの際は事前のご連絡をお願いいたします。
-          </p>
-          <div class="footer__maps">
-            <i data-lucide="map-pin"></i><span>OPEN IN GOOGLE MAPS</span>
-          </div>
+          <h4 class="footer__head">SHOP LOCATION</h4>
+         <p>
+          〒901-0605<br> 沖縄県南城市玉城中山297<br>
+        </p>
+       <a 
+  href="https://maps.app.goo.gl/ZuTjCqBFWN3ULpYx9" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="map-link"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    class="map-icon"
+  >
+    <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </svg>
+
+  OPEN IN GOOGLE MAPS
+</a>
         </div>
       </div>
 
       <div class="footer__bottom">
         <div>© KUSA NO CHIKARA. Born in Okinawa.</div>
-        <div class="footer__links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+       
         </div>
       </div>
     </div>

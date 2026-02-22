@@ -165,7 +165,7 @@ img{ display:block; max-width:100%; }
   top:0; left:0; right:0;
   z-index:50;
   transition: all .7s ease;
-  padding:32px 0;
+  padding:18px 0;
 }
 .nav--scrolled{
   background: rgba(255,255,255,.95);
@@ -219,40 +219,6 @@ img{ display:block; max-width:100%; }
   .icon-btn{ display:none; }
   .nav__contactWrap{ display:block; }
 }
-
-/* Mobile menu */
-.mobile-menu{
-  position:fixed;
-  inset:0;
-  z-index:40;
-  background: var(--emerald-950);
-  color:#fff;
-  padding:48px;
-  display:none;
-}
-.mobile-menu.is-open{
-  display:flex;
-  animation: fade-in 0.35s ease-out forwards;
-}
-.mobile-menu__content{
-  margin:auto 0;
-  display:flex;
-  flex-direction:column;
-  gap:28px;
-}
-.mobile-menu__link{
-  font-size:32px;
-  letter-spacing:.2em;
-  font-weight:300;
-  font-style:italic;
-}
-.mobile-menu__social{
-  padding-top:48px;
-  display:flex;
-  gap:24px;
-  align-items:center;
-}
-.mobile-menu svg{ width:24px; height:24px; }
 
 /* Hero */
 .hero{
@@ -369,11 +335,10 @@ img{ display:block; max-width:100%; }
   justify-content:center;
 }
 .profile__text{
-  margin:0;
-  font-size:12px;
-  letter-spacing:.12em;
-  font-weight:700;
-  font-family:"Noto Sans JP","Yu Gothic","MS Gothic",sans-serif;
+  margin:8px;               /* ← これが重要 */
+  line-height:1;          /* 行間を詰める */
+  display:flex;
+  align-items:center;
 }
 
 /* Media / quote card */
@@ -475,6 +440,10 @@ img{ display:block; max-width:100%; }
   color: rgba(255,255,255,.40);
   cursor:pointer;
   transition: all .25s ease;
+}
+/* ✅ Harvestの右側を、overlay配置の基準にする */
+.harvest__right{
+  position: relative;
 }
 .tab:hover{ color: rgba(255,255,255,.70); }
 .tab.is-active{
@@ -658,7 +627,7 @@ img{ display:block; max-width:100%; }
   letter-spacing:.4em;
   text-transform:uppercase;
   font-weight:700;
-  color: var(--emerald-400);
+    color: #ffffff;
   margin-bottom:16px;
 }
 .journal__title{
@@ -1024,8 +993,6 @@ img{ display:block; max-width:100%; }
 html, body{
   overflow-x: hidden;
 }
-<<<<<<< HEAD
-=======
 
 /* ===========================
    Hero panel layout fix
@@ -1107,4 +1074,1203 @@ border: 1px solid rgba(255,255,255,.22);
 }
 @media (min-width:1024px){
   .hero{ padding-top: 120px; }
+}
+
+/* Harvest画像の上の説明ボックスを「半分だけ重ねる」 */
+
+.harvest__imageWrap,
+.season__imageWrap,
+.harvest__image,
+.season__image{
+  position: relative; /* overlayの基準 */
+}
+
+/*  Harvest 画像上の説明ボックス：右下に配置（半分だけ重ねる） */
+.harvest__overlay,
+.harvest__note,
+.season__overlay,
+.season__note{
+  position: absolute;
+
+  top: auto !important;      /* ← 上に固定されるのを無効化 */
+  bottom: -18% !important;     /* ← 右下へ */
+  right: -6% !important;     /* ← 半分だけはみ出し */
+
+  width: min(420px, 52%);
+  max-height: 260px;         /* ← 縦が伸びすぎない */
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+
+  z-index: 2;
+}
+
+/* 画面が狭いときははみ出しを無くして読みやすさ優先 */
+@media (max-width: 900px){
+  .harvest__overlay,
+  .harvest__note,
+  .season__overlay,
+  .season__note{
+    right: 4%;
+    top: 6%;
+    width: min(520px, 86%);
+  }
+}
+/* ===== Headerを常に見えるようにする ===== */
+
+header,
+.nav,
+.header {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* ロゴ文字を濃く */
+header a,
+.nav a,
+.header a {
+  color: #1a1a1a !important;
+}
+
+/* ハンバーガーも濃く */
+.menu-toggle,
+.hamburger {
+  color: #1a1a1a !important;
+}
+/* ===== ヘッダー：白背景でも文字が消えないようにする（強制修正） ===== */
+
+/* ヘッダーの板 */
+.header{
+  background: rgba(255,255,255,.92) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* ロゴ・メニュー文字を濃色に */
+.header .logo,
+.header .logo a,
+.header nav a,
+.header .nav a{
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+}
+
+/* CONTACTボタン（枠と文字） */
+.header .btn,
+.header .btn-outline,
+.header .header__cta{
+  color: #1a1a1a !important;
+  border-color: rgba(0,0,0,.25) !important;
+  background: transparent !important;
+}
+
+/* hover時 */
+.header nav a:hover{
+  color: #0f766e !important; /* 落ち着いた緑 */
+}
+.header .btn:hover,
+.header .btn-outline:hover,
+.header .header__cta:hover{
+  background: rgba(0,0,0,.06) !important;
+}
+/* ===== ヘッダーが白背景でも文字が消えないように（強制） ===== */
+
+header, nav {
+  color: #1a1a1a;
+}
+
+/* ヘッダーっぽい要素をまとめて白板に */
+header,
+.header,
+.site-header,
+.navbar,
+.nav,
+.top-nav {
+  background: rgba(255,255,255,.92) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* リンク文字を濃く（よくあるクラス全部に当てる） */
+header a,
+.header a,
+.site-header a,
+.navbar a,
+.nav a,
+.top-nav a {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+}
+
+/* ロゴっぽい文字（よくあるクラス） */
+.logo, .brand, .site-title, .header__logo, .nav__logo {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+}
+
+/* 右上のボタン */
+header button,
+header .btn,
+header .cta,
+.nav button,
+.nav .btn,
+.nav .cta {
+  color: #1a1a1a !important;
+  border-color: rgba(0,0,0,.25) !important;
+  background: transparent !important;
+  opacity: 1 !important;
+}
+.map-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:16px;
+  font-size:12px;
+  letter-spacing:0.25em;
+  text-decoration:none;
+  color:#34d399;
+  transition: all .3s ease;
+}
+
+.map-link:hover{
+  color:#ffffff;
+}
+
+.map-icon{
+  width:16px;
+  height:16px;
+}
+/* ===== Footer：右カラム（SHOP LOCATION）を右寄せ＆右端固定 ===== */
+
+.footer__grid{
+  display: grid !important;
+  grid-template-columns: 1fr auto; /* 左は伸びる / 右は内容幅 */
+  gap: 56px;
+  align-items: start;
+}
+
+/* SHOP LOCATION カラム */
+.footer__col--wide{
+  justify-self: end !important;   /* grid右端へ */
+  text-align: right !important;   /* 中身を右寄せ */
+}
+
+/* mapリンクも右寄せ（inline-flex対策） */
+.footer__col--wide .map-link{
+  justify-content: flex-end;
+}
+
+/* スマホは縦並びにして見やすく */
+@media (max-width: 900px){
+  .footer__grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .footer__col--wide{
+    justify-self: start !important;
+    text-align: left !important;
+  }
+  .footer__col--wide .map-link{
+    justify-content: flex-start;
+  }
+}
+/* ===== STORY セクションを白文字にする ===== */
+
+.section--plain{
+  color: #ffffff;
+}
+
+.section--plain h2,
+.section--plain h3,
+.section--plain p,
+.section--plain span{
+  color: #022c22 !important;
+}
+/* ===============================
+   Typography Optimization
+================================ */
+
+/* 全体の字間を少し締める */
+body{
+  letter-spacing: 0.03em;
+}
+
+/* 日本語見出し */
+h1, h2, h3,
+.hero__title,
+.h2{
+  letter-spacing: 0.08em;
+}
+
+/* 英語の小見出し（kickerなど） */
+.hero__kicker,
+.eyebrow{
+  letter-spacing: 0.25em;
+}
+
+/* 本文は詰めすぎない */
+p,
+.hero__lead{
+  letter-spacing: 0.04em;
+}
+
+/* ロゴはほんの少しだけ広げる */
+.brand{
+  letter-spacing: 0.25em;
+}
+/* ===============================
+   Section Spacing System
+================================ */
+
+/* 安全：.sectionにだけ適用 */
+.section{
+  padding: 120px 0;
+}
+@media (max-width:768px){
+  .section{ padding: 80px 0; }
+}
+
+/* Heroだけは別 */
+.hero{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* スマホは少し縮める */
+@media (max-width: 768px){
+  section{
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+/* ===============================
+   Unified Scroll Animation
+================================ */
+
+.reveal{
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s cubic-bezier(.16,1,.3,1),
+    transform 0.9s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* scaleタイプ */
+.reveal--scaleIn{
+  transform: scale(0.95);
+}
+
+.reveal--scaleIn.is-visible{
+  transform: scale(1);
+}
+
+/* フェードのみ */
+.reveal--fadeIn{
+  transform: none;
+}
+
+.reveal--fadeIn.is-visible{
+  opacity: 1;
+}
+/* ===============================
+   STORY(STATS) 見た目を“意味ある塊”に整える
+================================ */
+
+/* 3つの間隔を詰めて、中央の間延びを解消 */
+.grid--3{
+  gap: 24px; /* 80pxだと広すぎて間延びします */
+}
+
+/* それぞれをカード化（内容はそのまま） */
+.stat{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(2,44,34,.08);
+  border-radius: 18px;
+  padding: 38px 28px 30px;
+  box-shadow: 0 18px 46px rgba(0,0,0,.06);
+  text-align: center;
+}
+
+/* アイコンの丸：少し小さく＆上品に */
+.stat__icon{
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  background: rgba(52,211,153,.12); /* emerald薄め */
+}
+
+/* 数字：締める（今は字間マイナスで少し不安定） */
+.stat__value{
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+
+/* EXPERIENCEなど：余白と視認性 */
+.stat__label{
+  margin-bottom: 14px;
+  opacity: .65;
+}
+
+/* 説明文：読みやすい行間と幅 */
+.stat__desc{
+  padding: 0;
+  max-width: 26ch;
+  margin: 0 auto;
+  line-height: 2.1;
+  letter-spacing: .06em;
+}
+
+/* スマホ：カードの余白を少しだけ減らす */
+@media (max-width: 768px){
+  .stat{
+    padding: 28px 20px 24px;
+  }
+  .grid--3{
+    gap: 14px;
+  }
+}
+/* ===============================
+   Farm Stats（STORY）見た目改善
+   ※既存を壊さない“上書き”専用
+================================ */
+
+/* このセクションだけ、間延びを解消 */
+.section--plain .grid.grid--3.gap--xl{
+  gap: 28px; /* 80px → 28px に */
+}
+
+@media (min-width:1024px){
+  .section--plain .grid.grid--3.gap--xl{
+    gap: 36px; /* PCでも詰め気味に */
+  }
+}
+
+/* 3つを“意味ある塊”にする：カード化 */
+.section--plain .stat{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(2,44,34,.08);
+  border-radius: 18px;
+  padding: 40px 30px 32px;
+  box-shadow: 0 18px 46px rgba(0,0,0,.06);
+  text-align: center;
+}
+
+/* アイコン周りを上品に */
+.section--plain .stat__icon{
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  background: rgba(52,211,153,.12);
+}
+
+/* 数字・地名：少しだけ詰めて品よく */
+.section--plain .stat__value{
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+}
+
+/* EXPERIENCEなど：見やすく */
+.section--plain .stat__label{
+  margin-bottom: 16px;
+  opacity: .65;
+}
+
+/* 説明文：行幅と行間を整える */
+.section--plain .stat__desc{
+  padding: 0;
+  max-width: 26ch;
+  margin: 0 auto;
+  line-height: 2.1;
+  letter-spacing: .06em;
+}
+
+/* スマホ：余白を少しだけ減らす */
+@media (max-width:768px){
+  .section--plain .stat{
+    padding: 28px 20px 24px;
+    border-radius: 14px;
+  }
+}
+/* ===== QuoteCard：右下にずらして“半分だけ重ねる” ===== */
+.mediaCard{
+  position: relative;      /* quoteCardの基準 */
+  overflow: visible;       /* はみ出しOKにする */
+}
+
+.quoteCard{
+  position: absolute;
+  top: auto;
+  left: auto;
+
+  right: -6%;              /* 右へ少しはみ出す（＝写真が見える） */
+  bottom: -10%;            /* 下へ少しはみ出す */
+
+  width: min(360px, 60%);  /* 大きすぎない */
+  max-width: 360px;
+
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+}
+
+/* 画面が狭い時は“はみ出し”を弱める */
+@media (max-width: 900px){
+  .quoteCard{
+    right: 12px;
+    bottom: 12px;
+    width: min(420px, 86%);
+    max-width: none;
+  }
+}
+
+/* スマホは重ねず下に置く（読みやすさ優先） */
+@media (max-width: 480px){
+  .quoteCard{
+    position: static;
+    margin-top: 16px;
+    width: 100%;
+  }
+}
+/* ===== Mobile Hero Typography Fix ===== */
+@media (max-width: 480px){
+
+  /* ヒーロー全体：上下の詰まりを解消 */
+  .hero__content{
+    padding: 0 18px;
+  }
+
+  /* “板”がある場合は余白を最適化 */
+  .hero__panel{
+    padding: 18px 18px 20px;
+    border-radius: 14px;
+  }
+
+  /* 英字キッカー：字間が広すぎるので締める */
+  .hero__kicker{
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    line-height: 1.4;
+    opacity: .85;
+  }
+
+  /* タイトル：大きさ/行間/字間をスマホ最適に */
+  .hero__title{
+    font-size: 34px;       /* ここが一番効く */
+    line-height: 1.08;
+    letter-spacing: 0.02em;
+    margin: 10px 0 14px;
+  }
+
+  /* アクセント行：少しだけ小さくしてバランス */
+  .hero__titleAccent{
+    display: inline-block;
+    font-size: 0.92em;
+  }
+
+  /* リード文：字間を詰めて読みやすく */
+  .hero__lead{
+    font-size: 13px;
+    line-height: 1.9;
+    letter-spacing: 0.10em;
+    margin: 0 auto 18px;
+    max-width: 28ch;       /* 1行を短くして美しく */
+  }
+
+  /* ボタン：幅を揃えて整列 */
+  .hero__cta{
+    width: 100%;
+    gap: 10px;
+  }
+  .hero__cta .btn{
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  /* 下のスクロール矢印：邪魔なら少し下げる */
+  .hero__scroll{
+    bottom: 18px;
+  }
+}
+/* デフォルト（PC）：sp-onlyは無効 */
+.sp-only{
+  display: none;
+}
+
+/* スマホだけ有効 */
+@media (max-width: 480px){
+  .sp-only{
+    display: inline;
+  }
+
+  .hero__title{
+    text-align: center;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+  }
+
+  .hero__lead{
+    text-align: center;
+    line-height: 2;
+  }
+}
+/* PCでは改行させない */
+.sp-only{
+  display: none;
+}
+
+/* スマホだけ改行を有効にする */
+@media (max-width: 480px){
+  .sp-only{
+    display: inline;
+  }
+
+  .heroQuote__text{
+    line-height: 1.4;
+    font-size: 32px; /* 少しだけ抑えてバランス調整 */
+  }
+}
+/* Journalの文字色を白に戻す（section--plainの上書きを打ち消す） */
+.section--plain .journal__overlay{
+  color: #fff;
+}
+
+.section--plain .journal__overlay .journal__title,
+.section--plain .journal__overlay .journal__desc{
+  color: #fff !important;
+}
+.profile{
+  display: flex;
+  align-items: center;
+}
+
+.profile__icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile__icon svg{
+  width: 20px;
+  height: 20px;
+  display: block;     /* ← これが重要 */
+}
+
+.profile__text{
+  margin: 8;
+  line-height: 1.4;   /* 少し余裕を持たせる */
+}
+/* profile 内の p の余計な margin を完全に殺す */
+.profile p.profile__text{
+  margin: 0 !important;
+}
+
+/* 丸と文字を同じ高さで“数値的に”中央揃え */
+.profile{
+  display: flex;
+  align-items: center;
+}
+
+.profile__icon{
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile__text{
+  height: 44px;          /* 丸と同じ高さ */
+  display: flex;
+  align-items: center;   /* 文字を縦中央 */
+  line-height: 1;
+}
+/* ===============================
+   Journal Mobile Overlay Fix
+================================ */
+@media (max-width: 768px){
+
+  .journal__overlay{
+    padding: 24px;
+    background: linear-gradient(
+      to top,
+      rgba(2,44,34,.85) 0%,
+      rgba(2,44,34,.65) 40%,
+      rgba(2,44,34,.15) 75%,
+      transparent 100%
+    );
+  }
+
+  .journal__title{
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .journal__desc{
+    display: block;          /* SPでも表示 */
+    font-size: 12px;         /* 小さくする */
+    line-height: 1.7;
+    margin-bottom: 0;
+  }
+
+  .journal__tag{
+    font-size: 9px;
+    letter-spacing: .35em;
+    margin-bottom: 10px;
+  }
+}
+/* Storyタグを白に */
+.journal__overlay .journal__tag{
+  color: #ffffff !important;
+}
+/* ===============================
+   Logo Image
+================================ */
+
+.brandLink{
+  display: flex;
+  align-items: center;
+}
+
+.brandLogo{
+  height: 60px;          /* ロゴサイズ */
+  width: auto;
+  transition: all .3s ease;
+}
+
+/* スクロール時に少し小さく */
+.nav--scrolled .brandLogo{
+  height: 50px;
+}
+
+/* スマホ */
+@media (max-width:768px){
+  .brandLogo{
+    height: 60px;
+  }
+}
+.nav__brand{
+  margin-left: 34px;
+}
+/* ===============================
+   Quiet Japanese Emphasis
+================================ */
+
+.heroQuote__text{
+  font-family: "Yuji Syuku", serif;  /* 和の質感 */
+  line-height: 1.5;
+  letter-spacing: .06em;
+}
+
+/* 強調ワード */
+.quote-strong{
+  display: inline-block;
+  font-size: 1.35em;       /* 控えめに大きく */
+  font-weight: 400;        /* 太くしない（和風） */
+  letter-spacing: .04em;
+  position: relative;
+}
+
+/* 静かな下線（和紙のような細線） */
+.quote-strong::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,.35);
+}
+
+/* スマホで少しだけ強調を弱める */
+@media (max-width: 480px){
+  .quote-strong{
+    font-size: 2.2em;
+  }
+}
+/* ===============================
+   Quiet Japanese Emphasis – Refined
+================================ */
+
+.heroQuote__text{
+  font-family: "Yuji Syuku", serif;
+  line-height: 1.55;
+  letter-spacing: .05em;
+  font-size: 2.2em;   /* 全体を少し小さく */
+}
+
+/* 「野菜」だけ緑 */
+.quote-vegetable{
+  display: inline-block;
+  font-size: 1.45em;
+  color: var(--emerald-400);
+  letter-spacing: .03em;
+  position: relative;
+}
+
+/* 塩・食べて（少し大きいけど白） */
+.quote-strong{
+  display: inline-block;
+  font-size: 1.25em;
+  color: #ffffff;
+  letter-spacing: .04em;
+  position: relative;
+}
+
+/* 静かな細線 */
+.quote-vegetable::after,
+.quote-strong::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,.25);
+}
+/* ===============================
+   Hero Quiet Japanese Design
+================================ */
+
+.hero__title{
+  font-family: "Yuji Syuku", serif;
+  line-height: 1.2;
+  letter-spacing: .04em;
+}
+
+/* 強調ワード（野菜・体・体・人生） */
+.hero-strong{
+  display: inline-block;
+  font-size: 1em;     /* 基準サイズ */
+  color: #ffffff;
+  position: relative;
+}
+
+/* その他の言葉を半分に */
+.hero-soft{
+  display: inline-block;
+  font-size: 0.6em;   /* 半分 */
+  opacity: .7;
+  letter-spacing: .08em;
+}
+
+/* 静かな下線 */
+.hero-strong::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,.35);
+}
+.hero-strong:first-of-type{
+  color: var(--emerald-400);
+}
+.hero-soft{
+  font-weight: 300;
+}
+.brandLogo{
+  height: 36px;
+}
+
+.nav--scrolled .brandLogo{
+  height: 30px;
+}
+/* PCとスマホの切替 */
+.pc-only{ display: inline; }
+.sp-only{ display: none; }
+
+@media (max-width: 768px){
+  .pc-only{ display: none; }
+  .sp-only{ display: inline; }
+
+  .hero__title{
+    line-height: 1.35;
+  }
+}
+/* ===============================
+   Hero SP Center Balance
+================================ */
+@media (max-width:768px){
+
+  .hero__title{
+    text-align: center;
+    line-height: 1.45;
+    letter-spacing: .06em;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  /* 行ブロックごとに少し余白を作る */
+  .sp-only{
+    display: inline-block;
+  }
+
+  .sp-only br{
+    content:"";
+    display:block;
+    margin: 8px 0;   /* 改行の余白を整える */
+  }
+
+  /* 強調語の中央揃えを安定させる */
+  .hero-strong{
+    display:inline-block;
+    text-align:center;
+  }
+
+  .hero-soft{
+    display:inline-block;
+    opacity:.75;
+    font-size:.6em;  /* 小さい文字をより控えめに */
+  }
+
+}
+/* ===============================
+   Hero Title: SP Beautiful Stack Layout
+================================ */
+@media (max-width:768px){
+
+  /* SPだけ別レイアウトを有効化 */
+  .hero__title--spStack{
+    text-align:center;
+    letter-spacing:.02em;     /* 日本語は詰め気味が上品 */
+    line-height:1.15;
+    margin: 0 auto 22px;
+  }
+
+  /* 1行を「塊」として中央に置く */
+  .hero__title--spStack .spLine{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;     /* “芯”を揃える */
+    gap:.18em;
+    margin: 10px 0;
+  }
+
+  /* 呼吸のための間 */
+  .hero__title--spStack .spGap{
+    display:block;
+    height: 14px;
+  }
+
+  /* キーワード（野菜/体/人生） */
+  .hero__title--spStack .k{
+    font-size: 1.15em;        /* ここで強調の強さ調整 */
+    color: #34d399;           /* 野菜だけ緑にしたいなら後述 */
+    letter-spacing:.06em;
+  }
+
+  /* 助詞・語尾 */
+  .hero__title--spStack .j{
+    font-size: .62em;
+    opacity:.88;
+    letter-spacing:.08em;
+    transform: translateY(-.06em); /* 視覚的に整う */
+    white-space: nowrap;
+  }
+
+  /* “野菜”だけ緑にしたい場合：野菜のspanにだけ class追加が不要な方法 */
+  .hero__title--spStack .spLine:first-child .k{
+    color: #34d399;
+  }
+  /* 体・人生は白のままに */
+  .hero__title--spStack .spLine:not(:first-child) .k{
+    color:#fff;
+  }
+}
+/* ===============================
+   Hero Quote: SP Typography Polish
+================================ */
+@media (max-width:768px){
+
+  /* 全体の余白と芯 */
+  .heroQuote{
+    padding: 160px 0; /* スマホは少し圧縮 */
+  }
+
+  .heroQuote__text{
+    margin: 0 0 44px;
+    text-align: center;
+    line-height: 1.25;
+    letter-spacing: .02em;
+  }
+
+  /* 1行＝塊（中央の芯がズレない） */
+  .heroQuote__text .hqLine{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap: .14em;
+    margin: 12px 0;
+  }
+
+  /* 小さい文字（助詞など） */
+  .heroQuote__text .hqSmall{
+    font-size: .62em;
+    opacity: .92;
+    letter-spacing: .08em;
+    transform: translateY(-.06em);
+    white-space: nowrap;
+  }
+
+  /* 大きい文字（強調語） */
+  .heroQuote__text .hqKey{
+    font-size: 1.25em;
+    letter-spacing: .08em;
+    position: relative;
+    padding-bottom: .18em;
+  }
+
+  /* 静かな下線（短め） */
+  .heroQuote__text .hqKey::after{
+    content:"";
+    position:absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 0;
+    height: 2px;
+    background: rgba(255,255,255,.22);
+  }
+
+  /* 「野菜」だけ緑 */
+  .heroQuote__text .hqKey--veg{
+    color: var(--emerald-400);
+  }
+
+  /* 引用符を少しだけ控えめに */
+  .heroQuote__icon{
+    margin-bottom: 34px;
+    opacity: .22;
+  }
+
+  /* 名称ボタンとの距離と見え方（上質） */
+  .heroQuote__citeWrap{
+    padding: 10px 24px;
+    border-width: 1px;
+  }
+}
+/* PC/SP 表示切り替え */
+.hqSp{ display:none; }
+.hqPc{ display:inline; }
+
+@media (max-width:768px){
+  .hqPc{ display:none; }
+  .hqSp{ display:block; }
+}
+/* Hero：PC/SP 表示切り替え */
+.heroSp{ display:none; }
+.heroPc{ display:inline; }
+
+@media (max-width:768px){
+  .heroPc{ display:none; }
+  .heroSp{ display:inline; }
+}
+/* =========================
+   HERO Typography (PC base)
+========================= */
+
+.heroPc{ display:block; }
+.heroSp{ display:none; }
+
+.hero__title{
+  text-align:center;
+  letter-spacing: 0; /* ここは一旦0にして、要素側で整える */
+}
+
+.heroLine{
+  display:flex;
+  justify-content:center;
+  align-items:baseline;
+  gap: 0.28em;
+  margin: 0.18em 0;
+}
+
+/* 大きい単語（野菜 / 体 / 人生） */
+.heroKey{
+  font-family:"Yuji Syuku",serif;
+  font-weight:400;
+  font-size: clamp(52px, 6vw, 110px);
+  line-height:1.05;
+  letter-spacing: 0.06em;
+  color:#fff;
+  text-shadow: 0 10px 18px rgba(0,0,0,.28);
+  position:relative;
+}
+
+/* 野菜だけ緑 */
+.heroKey--veg{ color: var(--emerald-400); }
+
+/* 小さい文（は、 / をつくる。など） */
+.heroSmall{
+  font-family:"Noto Serif JP","Yu Mincho","MS Mincho",serif;
+  font-weight:300;
+  font-size: clamp(22px, 2.2vw, 44px); /* “半分くらい” */
+  line-height:1.2;
+  letter-spacing: 0.10em;
+  opacity:.90;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 8px 14px rgba(0,0,0,.20);
+}
+
+/* 静かな和風の余白と区切り（控えめな下線） */
+.heroKey::after{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  bottom:-0.22em;
+  height:1px;
+  background: rgba(255,255,255,.22);
+}
+
+/* =========================
+   HERO Typography (SP only)
+========================= */
+@media (max-width:768px){
+  .heroPc{ display:none; }
+  .heroSp{ display:block; }
+
+  .hero__title{
+    text-align:center;
+    line-height:1.05;
+  }
+
+  .heroLine{
+    gap: 0.22em;
+    margin: 0.12em 0;
+  }
+
+  .heroKey{
+    font-size: 52px;
+    letter-spacing: 0.08em;
+  }
+
+  .heroSmall{
+    font-size: 22px;   /* 小さい文字はより小さく */
+    letter-spacing: 0.12em;
+    opacity:.88;
+  }
+
+  .heroBreak{
+    display:block;
+    height: 14px; /* 段落の“間” */
+  }
+
+  /* SPは下線を少し短く・上品に */
+  .heroKey::after{
+    left: 10%;
+    right: 10%;
+    background: rgba(255,255,255,.18);
+  }
+}
+/* =========================
+   Hero Quote: PC/SP 表示切替
+========================= */
+
+/* デフォルトはPC表示 */
+.hqSp{ display:none; }
+.hqPc{ display:inline; }
+
+/* スマホだけSP表示 */
+@media (max-width:768px){
+  .hqPc{ display:none; }
+  .hqSp{
+    display:block;
+    text-align:center;
+  }
+  .hqLine{ display:block; } /* 1行ずつ改行 */
+}
+/* =========================
+   Hero Quote: SP typography
+========================= */
+@media (max-width:768px){
+  .heroQuote__text{
+    margin: 0 auto 40px;
+    max-width: 22em;
+    line-height: 1.9;
+    letter-spacing: .12em;
+    font-size: 24px;
+  }
+
+  .heroQuote__text .hqSmall{
+    font-family:"Noto Serif JP","Yu Mincho","MS Mincho",serif;
+    font-size: .72em;          /* 小さめ */
+    opacity: .92;
+  }
+
+  .heroQuote__text .hqKey{
+    font-family:"Yuji Syuku",serif;
+    font-size: 1.12em;         /* 強調 */
+    letter-spacing: .06em;
+    display:inline-block;
+  }
+
+  .heroQuote__text .hqKey--veg{
+    color: var(--emerald-400);
+  }
+}
+/* =====================================
+   Journal big (SP) typography polish
+   ===================================== */
+@media (max-width:768px){
+
+  /* 画像上の黒緑グラデを少し強めて読みやすく */
+  .journal__overlay{
+    padding: 22px 18px;
+    background: linear-gradient(
+      to top,
+      rgba(2,44,34,.88) 0%,
+      rgba(2,44,34,.55) 45%,
+      rgba(2,44,34,.10) 100%
+    );
+  }
+
+  /* STORYタグを白に（すでに入れてOK。念のため） */
+  .journal__tag{
+    color:#fff !important;
+    opacity:.9;
+    letter-spacing:.28em;  /* SPは広げすぎない */
+    margin-bottom:10px;
+  }
+
+  /* タイトル：落ち着いた行間・字間に */
+  .journal__title{
+    color:#fff;
+    font-size: 22px;
+    line-height: 1.35;
+    letter-spacing: .08em;
+    margin: 0 0 10px;
+    text-wrap: balance; /* 対応ブラウザで改行が綺麗になる */
+  }
+
+  /* 本文：小さめ＆幅を絞って“品よく” */
+  .journal__desc{
+    display:block;              /* SPでも表示させる */
+    color: rgba(255,255,255,.92);
+    font-size: 12.5px;
+    line-height: 1.9;
+    letter-spacing: .08em;
+    margin: 0;
+    max-width: 26em;            /* これが効く：読みやすい行幅 */
+    text-shadow: 0 2px 10px rgba(0,0,0,.25);
+  }
+
+  /* 文字ブロックを中央寄せ＆下に揃えて“芯”を作る */
+  .journal__overlay{
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
 }

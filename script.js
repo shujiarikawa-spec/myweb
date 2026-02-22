@@ -1,29 +1,24 @@
-// Initial lucide replacement
+// Lucide icons
 if (window.lucide) {
   lucide.createIcons();
 }
 
 const state = {
   isScrolled: false,
-  isMenuOpen: false,
   activeTab: 0,
 };
 
 const nav = document.getElementById("nav");
-const brandText = document.getElementById("brandText");
-const navLinks = document.getElementById("navLinks");
-const menuBtn = document.getElementById("menuBtn");
-const mobileMenu = document.getElementById("mobileMenu");
 const heroBg = document.getElementById("heroBg");
 
 const seasonImg = document.getElementById("seasonImg");
 const seasonText = document.getElementById("seasonText");
 
 const seasonImages = [
-  "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1592419044706-39796d40f98c?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1550506389-e9977585fdd2?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80",
+  "images/second.jpg",
+  "images/third.jpg",
+  "images/forth.JPG",
+  "images/fifth.jpg",
 ];
 
 const seasonTexts = [
@@ -33,111 +28,65 @@ const seasonTexts = [
   "秋の安らぎ。さつまいもなど、ほくほくとした甘みが増してくる季節。赤土が持つミネラルをじっくりと蓄えた根菜たちが主役です。",
 ];
 
+// ===== Scroll state =====
 function applyScrollState() {
   const scrolled = window.scrollY > 50;
   state.isScrolled = scrolled;
 
-  nav.classList.toggle("nav--scrolled", scrolled);
-
-  // brand color
-  brandText.classList.toggle("brand--dark", scrolled);
-  brandText.classList.toggle("brand--light", !scrolled);
-
-  // nav links color
-  navLinks.classList.toggle("nav__links--dark", scrolled);
-  navLinks.classList.toggle("nav__links--light", !scrolled);
-
-  // contact button style swap
-  const contactBtn = document.getElementById("contactBtn");
-  if (contactBtn) {
-    if (scrolled) {
-      contactBtn.classList.remove("btn--outline-light");
-      contactBtn.style.borderColor = "#064e3b";
-      contactBtn.style.color = "#064e3b";
-      contactBtn.onmouseenter = () => {
-        contactBtn.style.background = "#064e3b";
-        contactBtn.style.color = "#ffffff";
-      };
-      contactBtn.onmouseleave = () => {
-        contactBtn.style.background = "transparent";
-        contactBtn.style.color = "#064e3b";
-      };
-    } else {
-      contactBtn.classList.add("btn--outline-light");
-      contactBtn.style.borderColor = "";
-      contactBtn.style.color = "";
-      contactBtn.style.background = "";
-      contactBtn.onmouseenter = null;
-      contactBtn.onmouseleave = null;
-    }
-  }
+  if (nav) nav.classList.toggle("nav--scrolled", scrolled);
 
   // hero parallax-ish translate
   if (heroBg) {
     heroBg.style.transform = `scale(1.10) translateY(${scrolled ? "10%" : "0%"})`;
   }
-
-  // menu button icon color
-  if (menuBtn) {
-    menuBtn.style.color = scrolled ? "#022c22" : "#ffffff";
-  }
 }
 
-function setMenu(open) {
-  state.isMenuOpen = open;
-  mobileMenu.classList.toggle("is-open", open);
-  mobileMenu.setAttribute("aria-hidden", open ? "false" : "true");
-
-  // swap icon
-  const iconHolder = menuBtn.querySelector("i[data-lucide]");
-  if (iconHolder) {
-    iconHolder.setAttribute("data-lucide", open ? "x" : "menu");
-    lucide.createIcons();
-  }
-
-  // prevent body scroll when open
-  document.body.style.overflow = open ? "hidden" : "";
-}
-
+// ===== Tabs (data-tab="0" 形式に対応) =====
 function setTab(idx) {
   state.activeTab = idx;
 
-  // update active class
-  document.querySelectorAll(".tab").forEach((btn) => {
+  // active class
+  document.querySelectorAll(".tab[data-tab]").forEach((btn) => {
     btn.classList.toggle("is-active", Number(btn.dataset.tab) === idx);
   });
 
-  // update media
-  seasonImg.src = seasonImages[idx];
-  seasonText.textContent = seasonTexts[idx];
+  // media
+  if (seasonImg) seasonImg.src = seasonImages[idx] || seasonImages[0];
+  if (seasonText) seasonText.textContent = seasonTexts[idx] || "";
 }
 
 function setupTabs() {
+  const tabs = document.querySelectorAll(".tab[data-tab]");
+  if (!tabs.length) return;
+
   // init
   setTab(0);
 
-  document.querySelectorAll(".tab").forEach((btn) => {
+  tabs.forEach((btn) => {
     btn.addEventListener("click", () => {
       setTab(Number(btn.dataset.tab));
     });
   });
 }
 
+// ===== Reveal animation =====
 function setupRevealObserver() {
+  const els = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window) || !els.length) return;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        }
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
       });
     },
     { threshold: 0.1 }
   );
 
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  els.forEach((el) => observer.observe(el));
 }
 
+// ===== Hero scroll hint =====
 function setupHeroScrollHint() {
   const scrollHint = document.querySelector(".hero__scroll");
   if (!scrollHint) return;
@@ -150,17 +99,6 @@ function setupHeroScrollHint() {
 // Events
 window.addEventListener("scroll", applyScrollState);
 window.addEventListener("resize", applyScrollState);
-
-menuBtn.addEventListener("click", () => setMenu(!state.isMenuOpen));
-mobileMenu.addEventListener("click", (e) => {
-  // overlayクリックで閉じる（リンククリックは除外）
-  if (e.target === mobileMenu) setMenu(false);
-});
-
-// ESCで閉じる
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && state.isMenuOpen) setMenu(false);
-});
 
 // Init
 applyScrollState();
